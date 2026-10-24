@@ -465,18 +465,29 @@ var __TWCNL = {
   };
 
   // 翻译花园小游戏的提示图片（因为里面有文本）
+  // 替换花园说明图片，兼容网页版标签格式。
   const ModGardenTooltip = (MOD, M) => {
-    let oldDescFunc = M.tools.info.descFunc;
-    M.tools.info.descFunc = function () {
-      return oldDescFunc().replace(
-        '<img src="img/gardenTip.png" style="float:right;margin:0px 0px 8px 8px;"/>',
-        '<img src="' +
-          MOD.dirURI +
-          '/gardenTip.png" width="120px" style="float:right;margin:0px 0px 8px 8px;"/>'
-      );
+    const original = M.tools.info.descFunc;
+
+    M.tools.info.descFunc = function (...args) {
+      const template = document.createElement('template');
+      template.innerHTML = original.apply(this, args);
+
+      const imageURL =
+        MOD.dirURI.replace(/\/+$/, '') + '/gardenTip.png';
+
+      for (const img of template.content.querySelectorAll('img')) {
+        const src = img.getAttribute('src') || '';
+
+        if (/(?:^|\/)gardenTip\.png(?:[?#]|$)/i.test(src)) {
+          img.setAttribute('src', imageURL);
+          img.setAttribute('width', '120');
+        }
+      }
+
+      return template.innerHTML;
     };
   };
-
   // 将花园收获饼干Popup改为Notify，避免和解锁种子提示冲突，并修复收获饼干数量没有翻译的问题
   const ModGardenPopup = (MOD, M) => {
     M.plants.bakeberry.onHarvest = function (x, y, age) {
