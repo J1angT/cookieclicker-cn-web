@@ -54,7 +54,7 @@
 
     source = source.replace(
       pathPattern,
-      () => 'this.dirURI = ' + JSON.stringify(BASE) + ';'
+      () => 'this.dirURI = ' + JSON.stringify(BASE.replace(/\/+$/, '')) + ';'
     );
 
     // 先加载语言包，再执行修改路径后的主脚本。
