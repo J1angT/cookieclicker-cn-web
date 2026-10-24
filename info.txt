@@ -1,0 +1,15 @@
+{
+  "Name": "简体中文补全模组",
+  "ID": "TWCNClickerCN",
+  "Author": "TeeworldsCN",
+  "Description": "中文润色与补全，翻译贡献者：TsFreddie、AbyssAir、完全空白、逗B铅笔、HighStrike300、寒之雨、cyxw、DullBoi、lyu-kun、Yuanshou、SmoneumMaestro与匿名贡献的各位。",
+  "ModVersion": 1779794309,
+  "GameVersion": 2.053,
+  "Date": "26/05/2026",
+  "Dependencies": [],
+  "LanguagePacks": [
+    "lang.js"
+  ],
+  "AllowSteamAchievs": true,
+  "Disabled": 1
+}
